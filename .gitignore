@@ -1,9 +1,22 @@
 # Environment / secrets
-.env
-.env.local
-.env.*.local
-src/BE/appsettings.Development.json
-src/BE/appsettings.Production.json
+.env*
+!.env.example
+!.env.sample
+!.env.template
+src/BE/appsettings.*.json
+!src/BE/appsettings.example.json
+!src/BE/appsettings.template.json
+.git-credentials
+credentials.json
+service-account*.json
+*.pem
+*.key
+*.pfx
+*.p12
+*.jks
+*.keystore
+*.bundle
+.security-backups/
 
 # .NET / C#
 bin/
@@ -26,6 +39,7 @@ dist/
 src/BE/GeneratedCaseJson/
 src/FE/public/assets/ai-generated/
 tmp/
+/output/
 
 # Local tooling (portable MongoDB etc.)
 .tools/

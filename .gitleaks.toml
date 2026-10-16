@@ -1,0 +1,26 @@
+title = "SirLocked secret scanning"
+
+[extend]
+useDefault = true
+
+# These exact strings are documented examples and privacy-test sentinels.
+# Do not exclude whole test directories: real credentials there must still fail.
+[[allowlists]]
+description = "Exact non-secret example values and privacy-test sentinels"
+targetRules = ["generic-api-key"]
+regexTarget = "secret"
+regexes = [
+  '''^replace-with-at-least-32-characters$''',
+  '''^INV_SECRET_SENTINEL_7F91$''',
+  '''^INT_SECRET_SENTINEL_42AC$''',
+]
+
+# batchKey is a SHA-256 identifier, not a credential. Scope the exception to
+# this reviewed report and this JSON field rather than ignoring arbitrary hashes.
+[[allowlists]]
+description = "Reviewed semantic-review batch identifier"
+targetRules = ["generic-api-key"]
+condition = "AND"
+paths = ['''^analysis[/\\]completion-2026-09-30[/\\]v3-review\.json$''']
+regexTarget = "line"
+regexes = ['''^\s*"batchKey"\s*:\s*"[a-f0-9]{64}"\s*,?\s*$''']
